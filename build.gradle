@@ -32,6 +32,7 @@ dependencies {
     implementation 'org.mapstruct:mapstruct:1.4.2.Final'
     implementation 'org.flywaydb:flyway-core'
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.8'
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 
     compileOnly 'org.projectlombok:lombok'
 
@@ -54,7 +55,11 @@ tasks.named('test') {
 //heroku task needed for deploy
 task stage {
     dependsOn = ['build', 'clean']
-    test.enabled = false
+}
+tasks.whenTaskAdded {task ->
+    if (task.name.contains("stage")) {
+        test.enabled = false
+    }
 }
 build.mustRunAfter clean
 
@@ -79,13 +84,19 @@ jacocoTestCoverageVerification {
             includes = ['com.gametrader.*']
             excludes = ['com.gametrader.gametraderpostservice.GametraderPostServiceApplication',
                         'com.gametrader.gametraderpostservice.config.*',
+                        'com.gametrader.gametraderpostservice.mapper.*',
+                        'com.gametrader.gametraderpostservice.entity.*',
+                        'com.gametrader.gametraderpostservice.model.*',
+                        'com.gametrader.gametraderpostservice.dto.*',
+                        'com.gametrader.gametraderpostservice.repository.*',
                         'com.gametrader.gametraderpostservice.controller.TestController'
+
             ]
 
             limit {
                 counter = 'LINE'
                 value = 'COVEREDRATIO'
-                minimum = 0.8
+                minimum = 0.5
             }
         }
     }

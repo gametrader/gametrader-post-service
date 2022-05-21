@@ -4,13 +4,15 @@ import com.gametrader.gametraderpostservice.model.Category;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
+@Builder
 @Table(name = "post")
 public class PostEntity {
 
@@ -26,6 +28,9 @@ public class PostEntity {
     private String title;
 
     //TODO:add images handling
+    @Column(name = "image", nullable = true)
+    @OneToMany
+    private Set<Image> image;
 
     @Column(name = "category", nullable = false)
     private Category category;

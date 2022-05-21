@@ -1,9 +1,11 @@
 package com.gametrader.gametraderpostservice.dto;
 
 import com.gametrader.gametraderpostservice.model.Category;
+import lombok.Builder;
 
 import javax.validation.constraints.NotNull;
 
+@Builder
 public class PostDto {
 
     @NotNull

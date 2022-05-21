@@ -7,27 +7,30 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Set;
 
 
-@RestController("/v1/post")
+@RestController
+@RequestMapping("/v1/post")
 @AllArgsConstructor
 public class PostController {
 
     private final PostService postService;
 
     @PostMapping("/create")
-    public ResponseEntity<Void> createPost(@RequestBody @NotNull PostDto dto) {
+    public ResponseEntity<Void> createPost(@RequestBody @NotNull PostDto dto, @RequestParam Set<MultipartFile> files) {
 
-        postService.createPost(dto);
+        postService.createPost(dto, files);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Void> updatePost(@RequestBody @NotNull PostDto dto, @PathVariable @NotNull Long id) {
-        postService.updatePost(dto, id);
+    public ResponseEntity<Void> updatePost(@RequestBody @NotNull PostDto dto, @PathVariable @NotNull Long id, @RequestParam Set<MultipartFile> files) {
+        postService.updatePost(dto, id, files);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
