@@ -20,7 +20,7 @@ public class PostEntity {
     private Long id;
 
     @Column(name = "author_id", nullable = false)
-    private Long author_id;
+    private Long authorId;
 
     @Column(name = "title", nullable = false)
     private String title;
