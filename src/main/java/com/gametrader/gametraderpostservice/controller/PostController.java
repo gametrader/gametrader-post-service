@@ -51,7 +51,7 @@ public class PostController {
         return new ResponseEntity<>(postService.getPostsByLocalization(localization), HttpStatus.OK);
     }
 
-    @GetMapping("/get/all/{localization}")
+    @GetMapping("/get/all/{category}")
     public ResponseEntity<List<PostDto>> getAllPostsByCategory(@PathVariable @NotNull Category category) {
         return new ResponseEntity<>(postService.getPostsByCategory(category), HttpStatus.OK);
     }
