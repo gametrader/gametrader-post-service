@@ -22,7 +22,7 @@ import java.util.Objects;
 @Slf4j
 public class StorageServiceImpl implements StorageService {
     private final String bucketName = System.getenv("AWS_BUCKET_NAME");
-    private AmazonS3 s3Client;
+    private final AmazonS3 s3Client;
 
     @Override
     public String uploadFile(MultipartFile file) {
