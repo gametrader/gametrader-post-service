@@ -6,6 +6,71 @@ servers:
 - description: Generated server url
   url: http://localhost:8080
 paths:
+  /v1/post/update/{id}:
+    put:
+      operationId: updatePost
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      requestBody:
+        $ref: '#/components/requestBodies/inline_object'
+        content:
+          application/json:
+            schema:
+              properties:
+                dto:
+                  type: object
+                files:
+                  items:
+                    format: binary
+                    type: string
+                  type: array
+                  uniqueItems: true
+              required:
+              - files
+              type: object
+        required: true
+      responses:
+        "200":
+          description: OK
+      tags:
+      - post-controller
+      x-contentType: application/json
+      x-accepts: application/json
+  /v1/post/create:
+    post:
+      operationId: createPost
+      requestBody:
+        $ref: '#/components/requestBodies/inline_object_1'
+        content:
+          application/json:
+            schema:
+              properties:
+                dto:
+                  type: object
+                files:
+                  items:
+                    format: binary
+                    type: string
+                  type: array
+                  uniqueItems: true
+              required:
+              - files
+              type: object
+        required: true
+      responses:
+        "200":
+          description: OK
+      tags:
+      - post-controller
+      x-contentType: application/json
+      x-accepts: application/json
   /:
     get:
       operationId: test
@@ -19,6 +84,175 @@ paths:
       tags:
       - test-controller
       x-accepts: '*/*'
+  /v1/post/get/{id}:
+    get:
+      operationId: getPostById
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PostDto'
+          description: OK
+      tags:
+      - post-controller
+      x-accepts: '*/*'
+  /v1/post/get/all:
+    get:
+      operationId: getAllPosts
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/PostDto'
+                type: array
+          description: OK
+      tags:
+      - post-controller
+      x-accepts: '*/*'
+  /v1/post/get/all/{localization}:
+    get:
+      operationId: getAllPostsByLocalization
+      parameters:
+      - explode: false
+        in: path
+        name: localization
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/PostDto'
+                type: array
+          description: OK
+      tags:
+      - post-controller
+      x-accepts: '*/*'
+  /v1/post/get/all/{category}:
+    get:
+      operationId: getAllPostsByCategory
+      parameters:
+      - explode: false
+        in: path
+        name: category
+        required: true
+        schema:
+          enum:
+          - GAMES
+          - LAPTOPS
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/PostDto'
+                type: array
+          description: OK
+      tags:
+      - post-controller
+      x-accepts: '*/*'
+  /v1/post/get/all/{authorId}:
+    get:
+      operationId: getAllPostsByAuthorId
+      parameters:
+      - explode: false
+        in: path
+        name: authorId
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/PostDto'
+                type: array
+          description: OK
+      tags:
+      - post-controller
+      x-accepts: '*/*'
+  /v1/category/get/all:
+    get:
+      operationId: getAllCategories
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  enum:
+                  - GAMES
+                  - LAPTOPS
+                  type: string
+                type: array
+          description: OK
+      tags:
+      - category-controller
+      x-accepts: '*/*'
 components:
-  schemas: {}
+  requestBodies:
+    inline_object_1:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_object_1'
+      required: true
+    inline_object:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_object'
+      required: true
+  schemas:
+    PostDto:
+      type: object
+    inline_object:
+      properties:
+        dto:
+          type: object
+        files:
+          items:
+            format: binary
+            type: string
+          type: array
+          uniqueItems: true
+      required:
+      - files
+      type: object
+    inline_object_1:
+      properties:
+        dto:
+          type: object
+        files:
+          items:
+            format: binary
+            type: string
+          type: array
+          uniqueItems: true
+      required:
+      - files
+      type: object
 
