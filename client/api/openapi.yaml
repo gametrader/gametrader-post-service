@@ -185,7 +185,7 @@ paths:
       tags:
       - post-controller
       x-accepts: '*/*'
-  /v1/category/get/all:
+  /v1/post/category/get/all:
     get:
       operationId: getAllCategories
       responses:

@@ -38,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InlineObject1.JSON_PROPERTY_FILES
 })
 @JsonTypeName("inline_object_1")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-05-24T17:46:05.618691800+02:00[Europe/Belgrade]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-05-24T17:48:16.859401900+02:00[Europe/Belgrade]")
 public class InlineObject1 {
   public static final String JSON_PROPERTY_DTO = "dto";
   private PostDto dto;

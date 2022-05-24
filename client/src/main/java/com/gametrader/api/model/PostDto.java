@@ -39,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   PostDto.JSON_PROPERTY_PHONE_NUMBER
 })
 @JsonTypeName("PostDto")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-05-24T17:46:05.618691800+02:00[Europe/Belgrade]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-05-24T17:48:16.859401900+02:00[Europe/Belgrade]")
 public class PostDto {
   public static final String JSON_PROPERTY_ID = "id";
   private Long id;

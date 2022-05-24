@@ -267,7 +267,7 @@
         }
       }
     },
-    "/v1/category/get/all": {
+    "/v1/post/category/get/all": {
       "get": {
         "tags": [
           "category-controller"
