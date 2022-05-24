@@ -13,6 +13,8 @@ import javax.validation.constraints.NotNull;
 public class PostDto {
 
     @NotNull
+    private Long id;
+    @NotNull
     private Long authorId;
     @NotNull
     private String title;

@@ -11,7 +11,7 @@ import java.util.Set;
 public interface PostService {
 
     void createPost(PostDto dto, Set<MultipartFile> file);
-    void updatePost(PostDto dto, Long id, Set<MultipartFile> files);
+    void updatePost(PostDto dto, Set<MultipartFile> files);
     PostDto getPostById(Long id);
     List<PostDto> getAllPosts();
     List<PostDto> getPostsByAuthorId(Long authorId);

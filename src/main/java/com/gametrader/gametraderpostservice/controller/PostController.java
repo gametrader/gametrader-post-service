@@ -29,8 +29,8 @@ public class PostController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Void> updatePost(@RequestBody @NotNull PostDto dto, @PathVariable @NotNull Long id, @RequestParam Set<MultipartFile> files) {
-        postService.updatePost(dto, id, files);
+    public ResponseEntity<Void> updatePost(@RequestBody @NotNull PostDto dto, @RequestParam Set<MultipartFile> files) {
+        postService.updatePost(dto, files);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
