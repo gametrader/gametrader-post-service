@@ -7,7 +7,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**dto** | **Object** |  |  [optional]
+**dto** | [**PostDto**](PostDto.md) |  |  [optional]
 **files** | **Set&lt;File&gt;** |  | 
 
 

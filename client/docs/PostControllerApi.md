@@ -79,7 +79,7 @@ No authorization required
 
 ## getAllPosts
 
-> List&lt;Object&gt; getAllPosts()
+> List&lt;PostDto&gt; getAllPosts()
 
 
 
@@ -100,7 +100,7 @@ public class Example {
 
         PostControllerApi apiInstance = new PostControllerApi(defaultClient);
         try {
-            List<Object> result = apiInstance.getAllPosts();
+            List<PostDto> result = apiInstance.getAllPosts();
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PostControllerApi#getAllPosts");
@@ -119,7 +119,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**List&lt;Object&gt;**
+[**List&lt;PostDto&gt;**](PostDto.md)
 
 ### Authorization
 
@@ -139,7 +139,7 @@ No authorization required
 
 ## getAllPostsByAuthorId
 
-> List&lt;Object&gt; getAllPostsByAuthorId(authorId)
+> List&lt;PostDto&gt; getAllPostsByAuthorId(authorId)
 
 
 
@@ -161,7 +161,7 @@ public class Example {
         PostControllerApi apiInstance = new PostControllerApi(defaultClient);
         Long authorId = 56L; // Long | 
         try {
-            List<Object> result = apiInstance.getAllPostsByAuthorId(authorId);
+            List<PostDto> result = apiInstance.getAllPostsByAuthorId(authorId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PostControllerApi#getAllPostsByAuthorId");
@@ -183,7 +183,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**List&lt;Object&gt;**
+[**List&lt;PostDto&gt;**](PostDto.md)
 
 ### Authorization
 
@@ -203,7 +203,7 @@ No authorization required
 
 ## getAllPostsByCategory
 
-> List&lt;Object&gt; getAllPostsByCategory(category)
+> List&lt;PostDto&gt; getAllPostsByCategory(category)
 
 
 
@@ -225,7 +225,7 @@ public class Example {
         PostControllerApi apiInstance = new PostControllerApi(defaultClient);
         String category = "GAMES"; // String | 
         try {
-            List<Object> result = apiInstance.getAllPostsByCategory(category);
+            List<PostDto> result = apiInstance.getAllPostsByCategory(category);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PostControllerApi#getAllPostsByCategory");
@@ -247,7 +247,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**List&lt;Object&gt;**
+[**List&lt;PostDto&gt;**](PostDto.md)
 
 ### Authorization
 
@@ -267,7 +267,7 @@ No authorization required
 
 ## getAllPostsByLocalization
 
-> List&lt;Object&gt; getAllPostsByLocalization(localization)
+> List&lt;PostDto&gt; getAllPostsByLocalization(localization)
 
 
 
@@ -289,7 +289,7 @@ public class Example {
         PostControllerApi apiInstance = new PostControllerApi(defaultClient);
         String localization = "localization_example"; // String | 
         try {
-            List<Object> result = apiInstance.getAllPostsByLocalization(localization);
+            List<PostDto> result = apiInstance.getAllPostsByLocalization(localization);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PostControllerApi#getAllPostsByLocalization");
@@ -311,7 +311,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**List&lt;Object&gt;**
+[**List&lt;PostDto&gt;**](PostDto.md)
 
 ### Authorization
 
@@ -331,7 +331,7 @@ No authorization required
 
 ## getPostById
 
-> Object getPostById(id)
+> PostDto getPostById(id)
 
 
 
@@ -353,7 +353,7 @@ public class Example {
         PostControllerApi apiInstance = new PostControllerApi(defaultClient);
         Long id = 56L; // Long | 
         try {
-            Object result = apiInstance.getPostById(id);
+            PostDto result = apiInstance.getPostById(id);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling PostControllerApi#getPostById");
@@ -375,7 +375,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+[**PostDto**](PostDto.md)
 
 ### Authorization
 
@@ -395,7 +395,7 @@ No authorization required
 
 ## updatePost
 
-> updatePost(id, inlineObject)
+> updatePost(inlineObject)
 
 
 
@@ -415,10 +415,9 @@ public class Example {
         defaultClient.setBasePath("http://localhost:8080");
 
         PostControllerApi apiInstance = new PostControllerApi(defaultClient);
-        Long id = 56L; // Long | 
         InlineObject inlineObject = new InlineObject(); // InlineObject | 
         try {
-            apiInstance.updatePost(id, inlineObject);
+            apiInstance.updatePost(inlineObject);
         } catch (ApiException e) {
             System.err.println("Exception when calling PostControllerApi#updatePost");
             System.err.println("Status code: " + e.getCode());
@@ -435,7 +434,6 @@ public class Example {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **Long**|  |
  **inlineObject** | [**InlineObject**](InlineObject.md)|  |
 
 ### Return type
