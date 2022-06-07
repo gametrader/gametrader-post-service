@@ -9,15 +9,6 @@ paths:
   /v1/post/update/{id}:
     put:
       operationId: updatePost
-      parameters:
-      - explode: false
-        in: path
-        name: id
-        required: true
-        schema:
-          format: int64
-          type: integer
-        style: simple
       requestBody:
         $ref: '#/components/requestBodies/inline_object'
         content:
@@ -25,7 +16,7 @@ paths:
             schema:
               properties:
                 dto:
-                  type: object
+                  $ref: '#/components/schemas/PostDto'
                 files:
                   items:
                     format: binary
@@ -53,7 +44,7 @@ paths:
             schema:
               properties:
                 dto:
-                  type: object
+                  $ref: '#/components/schemas/PostDto'
                 files:
                   items:
                     format: binary
@@ -194,7 +185,7 @@ paths:
       tags:
       - post-controller
       x-accepts: '*/*'
-  /v1/category/get/all:
+  /v1/post/category/get/all:
     get:
       operationId: getAllCategories
       responses:
@@ -228,11 +219,48 @@ components:
       required: true
   schemas:
     PostDto:
+      example:
+        localization: localization
+        emailAddress: emailAddress
+        phoneNumber: phoneNumber
+        description: description
+        id: 0
+        authorId: 6
+        title: title
+        category: GAMES
+      properties:
+        id:
+          format: int64
+          type: integer
+        authorId:
+          format: int64
+          type: integer
+        title:
+          type: string
+        category:
+          enum:
+          - GAMES
+          - LAPTOPS
+          type: string
+        description:
+          type: string
+        localization:
+          type: string
+        emailAddress:
+          type: string
+        phoneNumber:
+          type: string
+      required:
+      - authorId
+      - category
+      - id
+      - localization
+      - title
       type: object
     inline_object:
       properties:
         dto:
-          type: object
+          $ref: '#/components/schemas/PostDto'
         files:
           items:
             format: binary
@@ -245,7 +273,7 @@ components:
     inline_object_1:
       properties:
         dto:
-          type: object
+          $ref: '#/components/schemas/PostDto'
         files:
           items:
             format: binary

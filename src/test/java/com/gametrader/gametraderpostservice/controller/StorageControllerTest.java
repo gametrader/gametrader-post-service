@@ -32,7 +32,7 @@ class StorageControllerTest {
      */
     @Test
     void testGetImages() throws Exception {
-        MockHttpServletRequestBuilder contentTypeResult = MockMvcRequestBuilders.get("/v1/storage/get")
+        MockHttpServletRequestBuilder contentTypeResult = MockMvcRequestBuilders.get("/v1/post/storage/get")
                 .contentType(MediaType.APPLICATION_JSON);
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -49,7 +49,7 @@ class StorageControllerTest {
      */
     @Test
     void testGetImages2() throws Exception {
-        MockHttpServletRequestBuilder contentTypeResult = MockMvcRequestBuilders.get("/v1/storage/get", "Uri Vars")
+        MockHttpServletRequestBuilder contentTypeResult = MockMvcRequestBuilders.get("/v1/post/storage/get", "Uri Vars")
                 .contentType(MediaType.APPLICATION_JSON);
 
         ObjectMapper objectMapper = new ObjectMapper();

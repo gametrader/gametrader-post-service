@@ -15,6 +15,7 @@ package com.gametrader.api;
 
 import com.gametrader.api.model.InlineObject;
 import com.gametrader.api.model.InlineObject1;
+import com.gametrader.api.model.PostDto;
 import org.junit.Test;
 import org.junit.Ignore;
 
@@ -58,7 +59,7 @@ public class PostControllerApiTest {
      */
     @Test
     public void getAllPostsTest() {
-        List<Object> response = api.getAllPosts();
+        List<PostDto> response = api.getAllPosts();
 
         // TODO: test validations
     }
@@ -74,7 +75,7 @@ public class PostControllerApiTest {
     @Test
     public void getAllPostsByAuthorIdTest() {
         Long authorId = null;
-        List<Object> response = api.getAllPostsByAuthorId(authorId);
+        List<PostDto> response = api.getAllPostsByAuthorId(authorId);
 
         // TODO: test validations
     }
@@ -90,7 +91,7 @@ public class PostControllerApiTest {
     @Test
     public void getAllPostsByCategoryTest() {
         String category = null;
-        List<Object> response = api.getAllPostsByCategory(category);
+        List<PostDto> response = api.getAllPostsByCategory(category);
 
         // TODO: test validations
     }
@@ -106,7 +107,7 @@ public class PostControllerApiTest {
     @Test
     public void getAllPostsByLocalizationTest() {
         String localization = null;
-        List<Object> response = api.getAllPostsByLocalization(localization);
+        List<PostDto> response = api.getAllPostsByLocalization(localization);
 
         // TODO: test validations
     }
@@ -122,7 +123,7 @@ public class PostControllerApiTest {
     @Test
     public void getPostByIdTest() {
         Long id = null;
-        Object response = api.getPostById(id);
+        PostDto response = api.getPostById(id);
 
         // TODO: test validations
     }
@@ -137,9 +138,8 @@ public class PostControllerApiTest {
      */
     @Test
     public void updatePostTest() {
-        Long id = null;
         InlineObject inlineObject = null;
-        api.updatePost(id, inlineObject);
+        api.updatePost(inlineObject);
 
         // TODO: test validations
     }

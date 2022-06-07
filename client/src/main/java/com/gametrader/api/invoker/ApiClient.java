@@ -56,7 +56,7 @@ import java.time.OffsetDateTime;
 
 import com.gametrader.api.invoker.auth.Authentication;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-05-21T14:13:07.170215600+02:00[Europe/Belgrade]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-05-24T17:48:16.859401900+02:00[Europe/Belgrade]")
 @Component("com.gametrader.api.invoker.ApiClient")
 public class ApiClient extends JavaTimeFormatter {
     public enum CollectionFormat {

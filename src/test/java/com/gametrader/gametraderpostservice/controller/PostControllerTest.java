@@ -91,9 +91,6 @@ class PostControllerTest {
     }
 
 
-    /**
-     * Method under test: {@link PostController#updatePost(PostDto, Long, java.util.Set)}
-     */
     @Test
     void testUpdatePost() {
         //   Diffblue Cover was unable to write a Spring test,
@@ -136,7 +133,7 @@ class PostControllerTest {
         PostController postController = new PostController(
                 new PostServiceImpl(postRepository, postMapper, new StorageServiceImpl(new AmazonS3Client())));
         PostDto dto = mock(PostDto.class);
-        ResponseEntity<Void> actualUpdatePostResult = postController.updatePost(dto, 1L, new HashSet<>());
+        ResponseEntity<Void> actualUpdatePostResult = postController.updatePost(dto, new HashSet<>());
         assertNull(actualUpdatePostResult.getBody());
         assertEquals(HttpStatus.ACCEPTED, actualUpdatePostResult.getStatusCode());
         assertTrue(actualUpdatePostResult.getHeaders().isEmpty());

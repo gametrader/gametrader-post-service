@@ -24,7 +24,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-05-21T14:13:07.170215600+02:00[Europe/Belgrade]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-05-24T17:48:16.859401900+02:00[Europe/Belgrade]")
 @Component("com.gametrader.api.CategoryControllerApi")
 public class CategoryControllerApi {
     private ApiClient apiClient;
@@ -83,6 +83,6 @@ public class CategoryControllerApi {
         String[] authNames = new String[] {  };
 
         ParameterizedTypeReference<List<String>> returnType = new ParameterizedTypeReference<List<String>>() {};
-        return apiClient.invokeAPI("/v1/category/get/all", HttpMethod.GET, Collections.<String, Object>emptyMap(), queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, localVarContentType, authNames, returnType);
+        return apiClient.invokeAPI("/v1/post/category/get/all", HttpMethod.GET, Collections.<String, Object>emptyMap(), queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, localVarContentType, authNames, returnType);
     }
 }

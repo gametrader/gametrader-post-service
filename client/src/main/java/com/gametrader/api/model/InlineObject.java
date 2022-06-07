@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.gametrader.api.model.PostDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.File;
@@ -37,16 +38,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   InlineObject.JSON_PROPERTY_FILES
 })
 @JsonTypeName("inline_object")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-05-21T14:13:07.170215600+02:00[Europe/Belgrade]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-05-24T17:48:16.859401900+02:00[Europe/Belgrade]")
 public class InlineObject {
   public static final String JSON_PROPERTY_DTO = "dto";
-  private Object dto;
+  private PostDto dto;
 
   public static final String JSON_PROPERTY_FILES = "files";
   private Set<File> files = new LinkedHashSet<>();
 
 
-  public InlineObject dto(Object dto) {
+  public InlineObject dto(PostDto dto) {
     
     this.dto = dto;
     return this;
@@ -61,14 +62,14 @@ public class InlineObject {
   @JsonProperty(JSON_PROPERTY_DTO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Object getDto() {
+  public PostDto getDto() {
     return dto;
   }
 
 
   @JsonProperty(JSON_PROPERTY_DTO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDto(Object dto) {
+  public void setDto(PostDto dto) {
     this.dto = dto;
   }
 

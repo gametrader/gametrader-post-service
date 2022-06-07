@@ -4,6 +4,7 @@ import com.gametrader.api.invoker.ApiClient;
 
 import com.gametrader.api.model.InlineObject;
 import com.gametrader.api.model.InlineObject1;
+import com.gametrader.api.model.PostDto;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -26,7 +27,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-05-21T14:13:07.170215600+02:00[Europe/Belgrade]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2022-05-24T17:48:16.859401900+02:00[Europe/Belgrade]")
 @Component("com.gametrader.api.PostControllerApi")
 public class PostControllerApi {
     private ApiClient apiClient;
@@ -97,10 +98,10 @@ public class PostControllerApi {
      * 
      * 
      * <p><b>200</b> - OK
-     * @return List&lt;Object&gt;
+     * @return List&lt;PostDto&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public List<Object> getAllPosts() throws RestClientException {
+    public List<PostDto> getAllPosts() throws RestClientException {
         return getAllPostsWithHttpInfo().getBody();
     }
 
@@ -108,10 +109,10 @@ public class PostControllerApi {
      * 
      * 
      * <p><b>200</b> - OK
-     * @return ResponseEntity&lt;List&lt;Object&gt;&gt;
+     * @return ResponseEntity&lt;List&lt;PostDto&gt;&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<Object>> getAllPostsWithHttpInfo() throws RestClientException {
+    public ResponseEntity<List<PostDto>> getAllPostsWithHttpInfo() throws RestClientException {
         Object postBody = null;
         
 
@@ -129,7 +130,7 @@ public class PostControllerApi {
 
         String[] authNames = new String[] {  };
 
-        ParameterizedTypeReference<List<Object>> returnType = new ParameterizedTypeReference<List<Object>>() {};
+        ParameterizedTypeReference<List<PostDto>> returnType = new ParameterizedTypeReference<List<PostDto>>() {};
         return apiClient.invokeAPI("/v1/post/get/all", HttpMethod.GET, Collections.<String, Object>emptyMap(), queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, localVarContentType, authNames, returnType);
     }
     /**
@@ -137,10 +138,10 @@ public class PostControllerApi {
      * 
      * <p><b>200</b> - OK
      * @param authorId  (required)
-     * @return List&lt;Object&gt;
+     * @return List&lt;PostDto&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public List<Object> getAllPostsByAuthorId(Long authorId) throws RestClientException {
+    public List<PostDto> getAllPostsByAuthorId(Long authorId) throws RestClientException {
         return getAllPostsByAuthorIdWithHttpInfo(authorId).getBody();
     }
 
@@ -149,10 +150,10 @@ public class PostControllerApi {
      * 
      * <p><b>200</b> - OK
      * @param authorId  (required)
-     * @return ResponseEntity&lt;List&lt;Object&gt;&gt;
+     * @return ResponseEntity&lt;List&lt;PostDto&gt;&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<Object>> getAllPostsByAuthorIdWithHttpInfo(Long authorId) throws RestClientException {
+    public ResponseEntity<List<PostDto>> getAllPostsByAuthorIdWithHttpInfo(Long authorId) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'authorId' is set
@@ -178,7 +179,7 @@ public class PostControllerApi {
 
         String[] authNames = new String[] {  };
 
-        ParameterizedTypeReference<List<Object>> returnType = new ParameterizedTypeReference<List<Object>>() {};
+        ParameterizedTypeReference<List<PostDto>> returnType = new ParameterizedTypeReference<List<PostDto>>() {};
         return apiClient.invokeAPI("/v1/post/get/all/{authorId}", HttpMethod.GET, uriVariables, queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, localVarContentType, authNames, returnType);
     }
     /**
@@ -186,10 +187,10 @@ public class PostControllerApi {
      * 
      * <p><b>200</b> - OK
      * @param category  (required)
-     * @return List&lt;Object&gt;
+     * @return List&lt;PostDto&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public List<Object> getAllPostsByCategory(String category) throws RestClientException {
+    public List<PostDto> getAllPostsByCategory(String category) throws RestClientException {
         return getAllPostsByCategoryWithHttpInfo(category).getBody();
     }
 
@@ -198,10 +199,10 @@ public class PostControllerApi {
      * 
      * <p><b>200</b> - OK
      * @param category  (required)
-     * @return ResponseEntity&lt;List&lt;Object&gt;&gt;
+     * @return ResponseEntity&lt;List&lt;PostDto&gt;&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<Object>> getAllPostsByCategoryWithHttpInfo(String category) throws RestClientException {
+    public ResponseEntity<List<PostDto>> getAllPostsByCategoryWithHttpInfo(String category) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'category' is set
@@ -227,7 +228,7 @@ public class PostControllerApi {
 
         String[] authNames = new String[] {  };
 
-        ParameterizedTypeReference<List<Object>> returnType = new ParameterizedTypeReference<List<Object>>() {};
+        ParameterizedTypeReference<List<PostDto>> returnType = new ParameterizedTypeReference<List<PostDto>>() {};
         return apiClient.invokeAPI("/v1/post/get/all/{category}", HttpMethod.GET, uriVariables, queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, localVarContentType, authNames, returnType);
     }
     /**
@@ -235,10 +236,10 @@ public class PostControllerApi {
      * 
      * <p><b>200</b> - OK
      * @param localization  (required)
-     * @return List&lt;Object&gt;
+     * @return List&lt;PostDto&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public List<Object> getAllPostsByLocalization(String localization) throws RestClientException {
+    public List<PostDto> getAllPostsByLocalization(String localization) throws RestClientException {
         return getAllPostsByLocalizationWithHttpInfo(localization).getBody();
     }
 
@@ -247,10 +248,10 @@ public class PostControllerApi {
      * 
      * <p><b>200</b> - OK
      * @param localization  (required)
-     * @return ResponseEntity&lt;List&lt;Object&gt;&gt;
+     * @return ResponseEntity&lt;List&lt;PostDto&gt;&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<Object>> getAllPostsByLocalizationWithHttpInfo(String localization) throws RestClientException {
+    public ResponseEntity<List<PostDto>> getAllPostsByLocalizationWithHttpInfo(String localization) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'localization' is set
@@ -276,7 +277,7 @@ public class PostControllerApi {
 
         String[] authNames = new String[] {  };
 
-        ParameterizedTypeReference<List<Object>> returnType = new ParameterizedTypeReference<List<Object>>() {};
+        ParameterizedTypeReference<List<PostDto>> returnType = new ParameterizedTypeReference<List<PostDto>>() {};
         return apiClient.invokeAPI("/v1/post/get/all/{localization}", HttpMethod.GET, uriVariables, queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, localVarContentType, authNames, returnType);
     }
     /**
@@ -284,10 +285,10 @@ public class PostControllerApi {
      * 
      * <p><b>200</b> - OK
      * @param id  (required)
-     * @return Object
+     * @return PostDto
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public Object getPostById(Long id) throws RestClientException {
+    public PostDto getPostById(Long id) throws RestClientException {
         return getPostByIdWithHttpInfo(id).getBody();
     }
 
@@ -296,10 +297,10 @@ public class PostControllerApi {
      * 
      * <p><b>200</b> - OK
      * @param id  (required)
-     * @return ResponseEntity&lt;Object&gt;
+     * @return ResponseEntity&lt;PostDto&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<Object> getPostByIdWithHttpInfo(Long id) throws RestClientException {
+    public ResponseEntity<PostDto> getPostByIdWithHttpInfo(Long id) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'id' is set
@@ -325,46 +326,36 @@ public class PostControllerApi {
 
         String[] authNames = new String[] {  };
 
-        ParameterizedTypeReference<Object> returnType = new ParameterizedTypeReference<Object>() {};
+        ParameterizedTypeReference<PostDto> returnType = new ParameterizedTypeReference<PostDto>() {};
         return apiClient.invokeAPI("/v1/post/get/{id}", HttpMethod.GET, uriVariables, queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, localVarContentType, authNames, returnType);
     }
     /**
      * 
      * 
      * <p><b>200</b> - OK
-     * @param id  (required)
      * @param inlineObject  (required)
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public void updatePost(Long id, InlineObject inlineObject) throws RestClientException {
-        updatePostWithHttpInfo(id, inlineObject);
+    public void updatePost(InlineObject inlineObject) throws RestClientException {
+        updatePostWithHttpInfo(inlineObject);
     }
 
     /**
      * 
      * 
      * <p><b>200</b> - OK
-     * @param id  (required)
      * @param inlineObject  (required)
      * @return ResponseEntity&lt;Void&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<Void> updatePostWithHttpInfo(Long id, InlineObject inlineObject) throws RestClientException {
+    public ResponseEntity<Void> updatePostWithHttpInfo(InlineObject inlineObject) throws RestClientException {
         Object postBody = inlineObject;
-        
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'id' when calling updatePost");
-        }
         
         // verify the required parameter 'inlineObject' is set
         if (inlineObject == null) {
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'inlineObject' when calling updatePost");
         }
         
-        // create path and map variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("id", id);
 
         final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
         final HttpHeaders headerParams = new HttpHeaders();
@@ -381,6 +372,6 @@ public class PostControllerApi {
         String[] authNames = new String[] {  };
 
         ParameterizedTypeReference<Void> returnType = new ParameterizedTypeReference<Void>() {};
-        return apiClient.invokeAPI("/v1/post/update/{id}", HttpMethod.PUT, uriVariables, queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, localVarContentType, authNames, returnType);
+        return apiClient.invokeAPI("/v1/post/update/{id}", HttpMethod.PUT, Collections.<String, Object>emptyMap(), queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, localVarContentType, authNames, returnType);
     }
 }

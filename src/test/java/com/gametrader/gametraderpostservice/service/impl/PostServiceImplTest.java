@@ -160,7 +160,7 @@ class PostServiceImplTest {
         postEntity2.setTitle("Dr");
         when(this.postMapper.dtoToEntity((PostDto) any())).thenReturn(postEntity2);
         PostDto dto = mock(PostDto.class);
-        this.postServiceImpl.updatePost(dto, 123L, new HashSet<>());
+        this.postServiceImpl.updatePost(dto, new HashSet<>());
         verify(this.postRepository).getById((Long) any());
         verify(this.postRepository).save((PostEntity) any());
         verify(this.postMapper).dtoToEntity((PostDto) any());
@@ -216,7 +216,7 @@ class PostServiceImplTest {
         postEntity2.setTitle("Dr");
         when(this.postMapper.dtoToEntity((PostDto) any())).thenReturn(postEntity2);
         PostDto dto = mock(PostDto.class);
-        this.postServiceImpl.updatePost(dto, 123L, new HashSet<>());
+        this.postServiceImpl.updatePost(dto,  new HashSet<>());
         verify(this.storageService).deleteFile((String) any());
         verify(this.postRepository).getById((Long) any());
         verify(this.postRepository).save((PostEntity) any());
@@ -278,7 +278,7 @@ class PostServiceImplTest {
         postEntity2.setTitle("Dr");
         when(this.postMapper.dtoToEntity((PostDto) any())).thenReturn(postEntity2);
         PostDto dto = mock(PostDto.class);
-        this.postServiceImpl.updatePost(dto, 123L, new HashSet<>());
+        this.postServiceImpl.updatePost(dto,  new HashSet<>());
         verify(this.storageService, atLeast(1)).deleteFile((String) any());
         verify(this.postRepository).getById((Long) any());
         verify(this.postRepository).save((PostEntity) any());
@@ -337,7 +337,7 @@ class PostServiceImplTest {
         postEntity2.setTitle("Dr");
         when(this.postMapper.dtoToEntity((PostDto) any())).thenReturn(postEntity2);
         PostDto dto = mock(PostDto.class);
-        this.postServiceImpl.updatePost(dto, 123L, new HashSet<>());
+        this.postServiceImpl.updatePost(dto,  new HashSet<>());
         verify(this.storageService).deleteFile((String) any());
         verify(this.postRepository).getById((Long) any());
         verify(this.postRepository).save((PostEntity) any());

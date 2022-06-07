@@ -14,7 +14,7 @@ import java.util.Set;
 
 @AllArgsConstructor
 @Controller
-@RequestMapping("/v1/storage")
+@RequestMapping("/v1/post/storage")
 public class StorageController {
 
     private final StorageService storageService;

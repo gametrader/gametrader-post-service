@@ -4,7 +4,7 @@ All URIs are relative to *http://localhost:8080*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getAllCategories**](CategoryControllerApi.md#getAllCategories) | **GET** /v1/category/get/all | 
+[**getAllCategories**](CategoryControllerApi.md#getAllCategories) | **GET** /v1/post/category/get/all | 
 
 
 

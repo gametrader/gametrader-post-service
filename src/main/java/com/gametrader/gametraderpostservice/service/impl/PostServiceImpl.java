@@ -36,16 +36,14 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void updatePost(PostDto dto, Long id, Set<MultipartFile> files) {
-        PostEntity oldPost = postRepository.getById(id);
+    public void updatePost(PostDto dto, Set<MultipartFile> files) {
+        PostEntity oldPost = postRepository.getById(dto.getId());
         oldPost.getImage().forEach(image -> storageService.deleteFile(image.getFileName()));
-
         Set<Image> images = new HashSet<>();
         for (MultipartFile file : files) {
             images.add(Image.builder().fileName(storageService.uploadFile(file)).build());
         }
         PostEntity newEntity = postMapper.dtoToEntity(dto);
-        newEntity.setId(oldPost.getId());
         newEntity.setImage(images);
         postRepository.save(newEntity);
     }

@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 .travis.yml
 README.md
 api/openapi.yaml
@@ -9,6 +8,7 @@ docs/CategoryControllerApi.md
 docs/InlineObject.md
 docs/InlineObject1.md
 docs/PostControllerApi.md
+docs/PostDto.md
 docs/TestControllerApi.md
 git_push.sh
 gradle.properties
@@ -33,8 +33,4 @@ src/main/java/com/gametrader/api/invoker/auth/HttpBasicAuth.java
 src/main/java/com/gametrader/api/invoker/auth/HttpBearerAuth.java
 src/main/java/com/gametrader/api/model/InlineObject.java
 src/main/java/com/gametrader/api/model/InlineObject1.java
-src/test/java/com/gametrader/api/CategoryControllerApiTest.java
-src/test/java/com/gametrader/api/PostControllerApiTest.java
-src/test/java/com/gametrader/api/TestControllerApiTest.java
-src/test/java/com/gametrader/api/model/InlineObject1Test.java
-src/test/java/com/gametrader/api/model/InlineObjectTest.java
+src/main/java/com/gametrader/api/model/PostDto.java
