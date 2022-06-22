@@ -14,22 +14,24 @@ import java.util.Set;
 @Setter
 public class PostDto {
 
-    @NotNull
-    private Long id;
-    @NotNull
-    private Long authorId;
-    @NotNull
-    private String title;
-    @NotNull
-    private Category category;
-    private String description;
-    @NotNull
-    private String localization;
-    private String emailAddress;
-    private String phoneNumber;
-    @NotNull
-    private Long price;
-    private Set<ImageEntity> image;
-    @NotNull
-    private boolean isPromoted;
+  @NotNull
+  private Long id;
+  @NotNull
+  private Long authorId;
+  @NotNull
+  private String title;
+
+
+  @NotNull
+  private Category category;
+  private String description;
+  @NotNull
+  private String localization;
+  private String emailAddress;
+  private String phoneNumber;
+  @NotNull
+  private Long price;
+  private Set<ImageEntity> image;
+  @NotNull
+  private boolean isPromoted;
 }

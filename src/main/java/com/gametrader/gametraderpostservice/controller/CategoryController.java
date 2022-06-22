@@ -1,6 +1,9 @@
 package com.gametrader.gametraderpostservice.controller;
 
+import com.gametrader.gametraderpostservice.entity.CategoryEntity;
 import com.gametrader.gametraderpostservice.model.Category;
+import com.gametrader.gametraderpostservice.service.CategoryService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +15,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/v1/post/category")
 public class CategoryController {
 
-    @GetMapping("/get/all")
-    public ResponseEntity<List<Category>> getAllCategories() {
-        return new ResponseEntity<>(Arrays.stream(Category.values()).collect(Collectors.toList()), HttpStatus.OK);
-    }
+  private final CategoryService categoryService;
+
+  @GetMapping("/get/all")
+  public ResponseEntity<List<CategoryEntity>> getAllCategories() {
+    return ResponseEntity.ok(categoryService.getAll());
+
+  }
+
 }

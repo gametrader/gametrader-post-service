@@ -31,8 +31,8 @@ public class PostEntity {
     @OneToMany
     private Set<ImageEntity> image;
 
-    @Column(name = "category", nullable = false)
-    private Category category;
+
+
 
     @Column(name = "description", nullable = true)
     private String description;
@@ -51,4 +51,9 @@ public class PostEntity {
 
     @Column(name = "phone_number", nullable = true)
     private String phoneNumber;
+
+    @OneToOne(optional = false, orphanRemoval = true)
+    @JoinColumn(name = "category_entity_id", nullable = false)
+    private CategoryEntity categoryEntity;
+
 }
