@@ -9,7 +9,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.gametrader.gametraderpostservice.dto.PostDto;
-import com.gametrader.gametraderpostservice.entity.Image;
+import com.gametrader.gametraderpostservice.entity.ImageEntity;
 import com.gametrader.gametraderpostservice.entity.PostEntity;
 import com.gametrader.gametraderpostservice.mapper.PostMapper;
 import com.gametrader.gametraderpostservice.model.Category;
@@ -173,11 +173,11 @@ class PostServiceImplTest {
     void testUpdatePost2() {
         when(this.storageService.deleteFile((String) any())).thenReturn("Delete File");
 
-        Image image = new Image();
+        ImageEntity image = new ImageEntity();
         image.setFileName("foo.txt");
         image.setId(123L);
 
-        HashSet<Image> imageSet = new HashSet<>();
+        HashSet<ImageEntity> imageSet = new HashSet<>();
         imageSet.add(image);
 
         PostEntity postEntity = new PostEntity();
@@ -230,15 +230,15 @@ class PostServiceImplTest {
     void testUpdatePost3() {
         when(this.storageService.deleteFile((String) any())).thenReturn("Delete File");
 
-        Image image = new Image();
+        ImageEntity image = new ImageEntity();
         image.setFileName("foo.txt");
         image.setId(123L);
 
-        Image image1 = new Image();
+        ImageEntity image1 = new ImageEntity();
         image1.setFileName("foo.txt");
         image1.setId(123L);
 
-        HashSet<Image> imageSet = new HashSet<>();
+        HashSet<ImageEntity> imageSet = new HashSet<>();
         imageSet.add(image1);
         imageSet.add(image);
 
@@ -291,14 +291,14 @@ class PostServiceImplTest {
     @Test
     void testUpdatePost4() {
         when(this.storageService.deleteFile((String) any())).thenReturn("Delete File");
-        Image image = mock(Image.class);
+        ImageEntity image = mock(ImageEntity.class);
         when(image.getFileName()).thenReturn("foo.txt");
         doNothing().when(image).setFileName((String) any());
         doNothing().when(image).setId((Long) any());
         image.setFileName("foo.txt");
         image.setId(123L);
 
-        HashSet<Image> imageSet = new HashSet<>();
+        HashSet<ImageEntity> imageSet = new HashSet<>();
         imageSet.add(image);
 
         PostEntity postEntity = new PostEntity();

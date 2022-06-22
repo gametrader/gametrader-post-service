@@ -12,7 +12,7 @@ import javax.persistence.*;
 @ToString
 @Builder
 @Table(name = "image")
-public class Image {
+public class ImageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
