@@ -1,7 +1,7 @@
 package com.gametrader.gametraderpostservice.service.impl;
 
 import com.gametrader.gametraderpostservice.dto.PostDto;
-import com.gametrader.gametraderpostservice.entity.Image;
+import com.gametrader.gametraderpostservice.entity.ImageEntity;
 import com.gametrader.gametraderpostservice.entity.PostEntity;
 import com.gametrader.gametraderpostservice.mapper.PostMapper;
 import com.gametrader.gametraderpostservice.model.Category;
@@ -26,9 +26,9 @@ public class PostServiceImpl implements PostService {
     private final StorageService storageService;
     @Override
     public void createPost(PostDto dto, Set<MultipartFile> file) {
-        Set<Image> images = new HashSet<>();
+        Set<ImageEntity> images = new HashSet<>();
         for (MultipartFile multipartFile : file) {
-            images.add(Image.builder().fileName(storageService.uploadFile(multipartFile)).build());
+            images.add(ImageEntity.builder().fileName(storageService.uploadFile(multipartFile)).build());
         }
         PostEntity postEntity = postMapper.dtoToEntity(dto);
         postEntity.setImage(images);
@@ -39,9 +39,9 @@ public class PostServiceImpl implements PostService {
     public void updatePost(PostDto dto, Set<MultipartFile> files) {
         PostEntity oldPost = postRepository.getById(dto.getId());
         oldPost.getImage().forEach(image -> storageService.deleteFile(image.getFileName()));
-        Set<Image> images = new HashSet<>();
+        Set<ImageEntity> images = new HashSet<>();
         for (MultipartFile file : files) {
-            images.add(Image.builder().fileName(storageService.uploadFile(file)).build());
+            images.add(ImageEntity.builder().fileName(storageService.uploadFile(file)).build());
         }
         PostEntity newEntity = postMapper.dtoToEntity(dto);
         newEntity.setImage(images);

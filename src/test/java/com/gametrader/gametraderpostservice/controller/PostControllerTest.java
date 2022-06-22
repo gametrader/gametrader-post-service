@@ -10,7 +10,6 @@ import static org.mockito.Mockito.when;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.gametrader.gametraderpostservice.dto.PostDto;
-import com.gametrader.gametraderpostservice.entity.Image;
 import com.gametrader.gametraderpostservice.entity.PostEntity;
 import com.gametrader.gametraderpostservice.mapper.PostMapperImpl;
 import com.gametrader.gametraderpostservice.model.Category;
@@ -23,8 +22,6 @@ import com.sun.security.auth.UserPrincipal;
 import java.util.ArrayList;
 
 import java.util.HashSet;
-
-import org.junit.jupiter.api.Disabled;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

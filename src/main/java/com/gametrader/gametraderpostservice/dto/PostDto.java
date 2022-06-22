@@ -1,9 +1,11 @@
 package com.gametrader.gametraderpostservice.dto;
 
+import com.gametrader.gametraderpostservice.entity.ImageEntity;
 import com.gametrader.gametraderpostservice.model.Category;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Builder
 @AllArgsConstructor
@@ -25,4 +27,9 @@ public class PostDto {
     private String localization;
     private String emailAddress;
     private String phoneNumber;
+    @NotNull
+    private Long price;
+    private Set<ImageEntity> image;
+    @NotNull
+    private boolean isPromoted;
 }

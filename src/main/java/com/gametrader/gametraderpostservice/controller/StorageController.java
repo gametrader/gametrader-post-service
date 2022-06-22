@@ -1,6 +1,6 @@
 package com.gametrader.gametraderpostservice.controller;
 
-import com.gametrader.gametraderpostservice.entity.Image;
+import com.gametrader.gametraderpostservice.entity.ImageEntity;
 import com.gametrader.gametraderpostservice.service.StorageService;
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
@@ -20,9 +20,9 @@ public class StorageController {
     private final StorageService storageService;
 
     @RequestMapping("/get")
-    public ResponseEntity<Set<ByteArrayResource>> getImages(@RequestBody Set<Image> imagesNames) {
+    public ResponseEntity<Set<ByteArrayResource>> getImages(@RequestBody Set<ImageEntity> imagesNames) {
         Set<ByteArrayResource> images = new HashSet<>();
-        for (Image imagesName : imagesNames) {
+        for (ImageEntity imagesName : imagesNames) {
             images.add(new ByteArrayResource(storageService.downloadFile(imagesName.getFileName())));
         }
         return ResponseEntity
