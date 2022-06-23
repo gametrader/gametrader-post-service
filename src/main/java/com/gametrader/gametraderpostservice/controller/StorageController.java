@@ -7,7 +7,6 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,15 +29,12 @@ public class StorageController {
         return new ResponseEntity<>(storageService.addImages(filesSet), HttpStatus.CREATED);
     }
 
-    @GetMapping("/get")
-    public ResponseEntity<Set<ByteArrayResource>> getImages(@RequestBody Set<ImageEntity> imagesNames) {
-        Set<ByteArrayResource> images = new HashSet<>();
-        for (ImageEntity imagesName : imagesNames) {
-            images.add(new ByteArrayResource(storageService.downloadFile(imagesName.getFileName())));
-        }
+    @GetMapping("/get/{imageName}")
+    public ResponseEntity<ByteArrayResource> getImages(@PathVariable String imageName) {
+        ByteArrayResource image = new ByteArrayResource(storageService.downloadFile(imageName));
         return ResponseEntity
                 .ok()
                 .header("Content-Type", "application/octet-stream")
-                .body(images);
+                .body(image);
     }
 }
