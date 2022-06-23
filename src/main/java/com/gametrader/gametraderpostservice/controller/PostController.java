@@ -7,11 +7,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Set;
 
 
 @RestController
@@ -22,15 +20,15 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping("/create")
-    public ResponseEntity<Void> createPost(@RequestBody @NotNull PostDto dto, @RequestParam Set<MultipartFile> files) {
+    public ResponseEntity<Void> createPost(@RequestBody @NotNull PostDto dto) {
 
-        postService.createPost(dto, files);
+        postService.createPost(dto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Void> updatePost(@RequestBody @NotNull PostDto dto, @RequestParam Set<MultipartFile> files) {
-        postService.updatePost(dto, files);
+    public ResponseEntity<Void> updatePost(@RequestBody @NotNull PostDto dto) {
+        postService.updatePost(dto);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 

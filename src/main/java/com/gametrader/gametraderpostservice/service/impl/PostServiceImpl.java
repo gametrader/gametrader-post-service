@@ -10,11 +10,8 @@ import com.gametrader.gametraderpostservice.service.PostService;
 import com.gametrader.gametraderpostservice.service.StorageService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,28 +20,15 @@ public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
     private final PostMapper postMapper;
-    private final StorageService storageService;
     @Override
-    public void createPost(PostDto dto, Set<MultipartFile> file) {
-        Set<ImageEntity> images = new HashSet<>();
-        for (MultipartFile multipartFile : file) {
-            images.add(ImageEntity.builder().fileName(storageService.uploadFile(multipartFile)).build());
-        }
+    public void createPost(PostDto dto) {
         PostEntity postEntity = postMapper.dtoToEntity(dto);
-        postEntity.setImage(images);
         postRepository.save(postEntity);
     }
 
     @Override
-    public void updatePost(PostDto dto, Set<MultipartFile> files) {
-        PostEntity oldPost = postRepository.getById(dto.getId());
-        oldPost.getImage().forEach(image -> storageService.deleteFile(image.getFileName()));
-        Set<ImageEntity> images = new HashSet<>();
-        for (MultipartFile file : files) {
-            images.add(ImageEntity.builder().fileName(storageService.uploadFile(file)).build());
-        }
+    public void updatePost(PostDto dto) {
         PostEntity newEntity = postMapper.dtoToEntity(dto);
-        newEntity.setImage(images);
         postRepository.save(newEntity);
     }
 
