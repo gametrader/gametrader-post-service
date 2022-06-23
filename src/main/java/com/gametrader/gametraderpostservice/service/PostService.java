@@ -14,5 +14,7 @@ public interface PostService {
     List<PostDto> getAllPosts();
     List<PostDto> getPostsByAuthorId(Long authorId);
     List<PostDto> getPostsByLocalization(String localization);
-    List<PostDto> getPostsByCategory(CategoryDto category);
+    List<PostDto> getPostsByCategory(Long categoryId);
+
+    List<PostDto> getPostsByCategoryAndLocalization(Long categoryId, String localization);
 }

@@ -7,12 +7,12 @@ import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.gametrader.gametraderpostservice.dto.CategoryDto;
 import com.gametrader.gametraderpostservice.dto.PostDto;
 import com.gametrader.gametraderpostservice.entity.CategoryEntity;
 import com.gametrader.gametraderpostservice.entity.ImageEntity;
 import com.gametrader.gametraderpostservice.entity.PostEntity;
 import com.gametrader.gametraderpostservice.mapper.PostMapper;
+import com.gametrader.gametraderpostservice.repository.CategoryRepository;
 import com.gametrader.gametraderpostservice.repository.ImageRepository;
 import com.gametrader.gametraderpostservice.repository.PostRepository;
 
@@ -29,6 +29,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {PostServiceImpl.class})
 @ExtendWith(SpringExtension.class)
 class PostServiceImplTest {
+    @MockBean
+    private CategoryRepository categoryRepository;
+
     @MockBean
     private ImageRepository imageRepository;
 
@@ -204,13 +207,38 @@ class PostServiceImplTest {
     }
 
     /**
-     * Method under test: {@link PostServiceImpl#getPostsByCategory(CategoryDto)}
+     * Method under test: {@link PostServiceImpl#getPostsByCategory(Long)}
      */
     @Test
     void testGetPostsByCategory() {
-        when(postRepository.findAllByCategory((CategoryDto) any())).thenReturn(new ArrayList<>());
-        assertTrue(postServiceImpl.getPostsByCategory(new CategoryDto()).isEmpty());
-        verify(postRepository).findAllByCategory((CategoryDto) any());
+        when(postRepository.findAllByCategory((CategoryEntity) any())).thenReturn(new ArrayList<>());
+
+        CategoryEntity categoryEntity = new CategoryEntity();
+        categoryEntity.setIconName("Icon Name");
+        categoryEntity.setId(123L);
+        categoryEntity.setName("Name");
+        when(categoryRepository.getById((Long) any())).thenReturn(categoryEntity);
+        assertTrue(postServiceImpl.getPostsByCategory(123L).isEmpty());
+        verify(postRepository).findAllByCategory((CategoryEntity) any());
+        verify(categoryRepository).getById((Long) any());
+    }
+
+    /**
+     * Method under test: {@link PostServiceImpl#getPostsByCategoryAndLocalization(Long, String)}
+     */
+    @Test
+    void testGetPostsByCategoryAndLocalization() {
+        when(postRepository.findAllByCategoryAndLocalization((CategoryEntity) any(), (String) any()))
+                .thenReturn(new ArrayList<>());
+
+        CategoryEntity categoryEntity = new CategoryEntity();
+        categoryEntity.setIconName("Icon Name");
+        categoryEntity.setId(123L);
+        categoryEntity.setName("Name");
+        when(categoryRepository.getById((Long) any())).thenReturn(categoryEntity);
+        assertTrue(postServiceImpl.getPostsByCategoryAndLocalization(123L, "Localization").isEmpty());
+        verify(postRepository).findAllByCategoryAndLocalization((CategoryEntity) any(), (String) any());
+        verify(categoryRepository).getById((Long) any());
     }
 }
 
