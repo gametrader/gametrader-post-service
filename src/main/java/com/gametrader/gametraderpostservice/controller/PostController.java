@@ -1,7 +1,7 @@
 package com.gametrader.gametraderpostservice.controller;
 
+import com.gametrader.gametraderpostservice.dto.CategoryDto;
 import com.gametrader.gametraderpostservice.dto.PostDto;
-import com.gametrader.gametraderpostservice.model.Category;
 import com.gametrader.gametraderpostservice.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -53,7 +53,7 @@ public class PostController {
     }
 
     @GetMapping("/get/all/{category}")
-    public ResponseEntity<List<PostDto>> getAllPostsByCategory(@PathVariable @NotNull Category category) {
+    public ResponseEntity<List<PostDto>> getAllPostsByCategory(@PathVariable @NotNull CategoryDto category) {
         return new ResponseEntity<>(postService.getPostsByCategory(category), HttpStatus.OK);
     }
 }

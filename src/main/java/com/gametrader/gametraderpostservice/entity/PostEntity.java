@@ -1,6 +1,5 @@
 package com.gametrader.gametraderpostservice.entity;
 
-import com.gametrader.gametraderpostservice.model.Category;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,8 +30,9 @@ public class PostEntity {
     @OneToMany
     private Set<ImageEntity> image;
 
-    @Column(name = "category", nullable = false)
-    private Category category;
+    @JoinColumn(name = "category", nullable = false)
+    @ManyToOne
+    private CategoryEntity category;
 
     @Column(name = "description", nullable = true)
     private String description;

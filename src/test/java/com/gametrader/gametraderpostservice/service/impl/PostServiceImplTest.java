@@ -7,11 +7,12 @@ import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.gametrader.gametraderpostservice.dto.CategoryDto;
 import com.gametrader.gametraderpostservice.dto.PostDto;
+import com.gametrader.gametraderpostservice.entity.CategoryEntity;
 import com.gametrader.gametraderpostservice.entity.ImageEntity;
 import com.gametrader.gametraderpostservice.entity.PostEntity;
 import com.gametrader.gametraderpostservice.mapper.PostMapper;
-import com.gametrader.gametraderpostservice.model.Category;
 import com.gametrader.gametraderpostservice.repository.ImageRepository;
 import com.gametrader.gametraderpostservice.repository.PostRepository;
 
@@ -45,9 +46,14 @@ class PostServiceImplTest {
      */
     @Test
     void testCreatePost() {
+        CategoryEntity categoryEntity = new CategoryEntity();
+        categoryEntity.setIconName("Icon Name");
+        categoryEntity.setId(123L);
+        categoryEntity.setName("Name");
+
         PostEntity postEntity = new PostEntity();
         postEntity.setAuthorId(123L);
-        postEntity.setCategory(Category.GAMES);
+        postEntity.setCategory(categoryEntity);
         postEntity.setDescription("The characteristics of someone or something");
         postEntity.setEmailAddress("42 Main St");
         postEntity.setId(123L);
@@ -60,9 +66,14 @@ class PostServiceImplTest {
         when(postRepository.save((PostEntity) any())).thenReturn(postEntity);
         when(imageRepository.saveAll((Iterable<ImageEntity>) any())).thenReturn(new ArrayList<>());
 
+        CategoryEntity categoryEntity1 = new CategoryEntity();
+        categoryEntity1.setIconName("Icon Name");
+        categoryEntity1.setId(123L);
+        categoryEntity1.setName("Name");
+
         PostEntity postEntity1 = new PostEntity();
         postEntity1.setAuthorId(123L);
-        postEntity1.setCategory(Category.GAMES);
+        postEntity1.setCategory(categoryEntity1);
         postEntity1.setDescription("The characteristics of someone or something");
         postEntity1.setEmailAddress("42 Main St");
         postEntity1.setId(123L);
@@ -86,9 +97,14 @@ class PostServiceImplTest {
      */
     @Test
     void testUpdatePost() {
+        CategoryEntity categoryEntity = new CategoryEntity();
+        categoryEntity.setIconName("Icon Name");
+        categoryEntity.setId(123L);
+        categoryEntity.setName("Name");
+
         PostEntity postEntity = new PostEntity();
         postEntity.setAuthorId(123L);
-        postEntity.setCategory(Category.GAMES);
+        postEntity.setCategory(categoryEntity);
         postEntity.setDescription("The characteristics of someone or something");
         postEntity.setEmailAddress("42 Main St");
         postEntity.setId(123L);
@@ -101,9 +117,14 @@ class PostServiceImplTest {
         when(postRepository.save((PostEntity) any())).thenReturn(postEntity);
         when(imageRepository.saveAll((Iterable<ImageEntity>) any())).thenReturn(new ArrayList<>());
 
+        CategoryEntity categoryEntity1 = new CategoryEntity();
+        categoryEntity1.setIconName("Icon Name");
+        categoryEntity1.setId(123L);
+        categoryEntity1.setName("Name");
+
         PostEntity postEntity1 = new PostEntity();
         postEntity1.setAuthorId(123L);
-        postEntity1.setCategory(Category.GAMES);
+        postEntity1.setCategory(categoryEntity1);
         postEntity1.setDescription("The characteristics of someone or something");
         postEntity1.setEmailAddress("42 Main St");
         postEntity1.setId(123L);
@@ -127,9 +148,14 @@ class PostServiceImplTest {
      */
     @Test
     void testGetPostById() {
+        CategoryEntity categoryEntity = new CategoryEntity();
+        categoryEntity.setIconName("Icon Name");
+        categoryEntity.setId(123L);
+        categoryEntity.setName("Name");
+
         PostEntity postEntity = new PostEntity();
         postEntity.setAuthorId(123L);
-        postEntity.setCategory(Category.GAMES);
+        postEntity.setCategory(categoryEntity);
         postEntity.setDescription("The characteristics of someone or something");
         postEntity.setEmailAddress("42 Main St");
         postEntity.setId(123L);
@@ -178,23 +204,13 @@ class PostServiceImplTest {
     }
 
     /**
-     * Method under test: {@link PostServiceImpl#getPostsByCategory(Category)}
+     * Method under test: {@link PostServiceImpl#getPostsByCategory(CategoryDto)}
      */
     @Test
     void testGetPostsByCategory() {
-        when(postRepository.findAllByCategory((Category) any())).thenReturn(new ArrayList<>());
-        assertTrue(postServiceImpl.getPostsByCategory(Category.GAMES).isEmpty());
-        verify(postRepository).findAllByCategory((Category) any());
-    }
-
-    /**
-     * Method under test: {@link PostServiceImpl#getPostsByCategory(Category)}
-     */
-    @Test
-    void testGetPostsByCategory2() {
-        when(postRepository.findAllByCategory((Category) any())).thenReturn(new ArrayList<>());
-        assertTrue(postServiceImpl.getPostsByCategory(Category.LAPTOPS).isEmpty());
-        verify(postRepository).findAllByCategory((Category) any());
+        when(postRepository.findAllByCategory((CategoryDto) any())).thenReturn(new ArrayList<>());
+        assertTrue(postServiceImpl.getPostsByCategory(new CategoryDto()).isEmpty());
+        verify(postRepository).findAllByCategory((CategoryDto) any());
     }
 }
 
