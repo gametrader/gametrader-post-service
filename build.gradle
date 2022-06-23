@@ -101,7 +101,8 @@ jacocoTestCoverageVerification {
                         'com.gametrader.gametraderpostservice.model.*',
                         'com.gametrader.gametraderpostservice.dto.*',
                         'com.gametrader.gametraderpostservice.repository.*',
-                        'com.gametrader.gametraderpostservice.controller.TestController'
+                        'com.gametrader.gametraderpostservice.controller.TestController',
+                        'com.gametrader.gametraderpostservice.service.impl.StorageServiceImpl'
 
             ]
 

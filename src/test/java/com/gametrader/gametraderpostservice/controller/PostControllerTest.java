@@ -1,22 +1,13 @@
 package com.gametrader.gametraderpostservice.controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
-import com.amazonaws.services.s3.AmazonS3Client;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gametrader.gametraderpostservice.dto.PostDto;
-import com.gametrader.gametraderpostservice.entity.PostEntity;
-import com.gametrader.gametraderpostservice.mapper.PostMapperImpl;
 import com.gametrader.gametraderpostservice.model.Category;
-import com.gametrader.gametraderpostservice.repository.PostRepository;
 import com.gametrader.gametraderpostservice.service.PostService;
-import com.gametrader.gametraderpostservice.service.impl.PostServiceImpl;
-import com.gametrader.gametraderpostservice.service.impl.StorageServiceImpl;
 import com.sun.security.auth.UserPrincipal;
 
 import java.util.ArrayList;
@@ -27,8 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -48,94 +38,57 @@ class PostControllerTest {
     private PostService postService;
 
     /**
-     * Method under test: {@link PostController#createPost(PostDto, java.util.Set)}
+     * Method under test: {@link PostController#createPost(PostDto)}
      */
     @Test
-    void testCreatePost() {
-        //   Diffblue Cover was unable to write a Spring test,
-        //   so wrote a non-Spring test instead.
-        //   Reason: R008 Failed to instantiate class under test.
-        //   Diffblue Cover was unable to construct an instance of PostController.
-        //   Add a package-visible constructor or a factory method for the class under test.
-        //   If such a method is already present but Diffblue Cover does not find it, it can
-        //   be specified using custom rules for inputs:
-        //   https://docs.diffblue.com/knowledge-base/cli/custom-inputs/
-        //   This can happen because the factory method takes arguments, throws, returns null
-        //   or returns a subtype.
-        //   See https://diff.blue/R008
+    void testCreatePost() throws Exception {
+        doNothing().when(postService).createPost((PostDto) any());
 
-        PostEntity postEntity = new PostEntity();
-        postEntity.setAuthorId(123L);
-        postEntity.setCategory(Category.GAMES);
-        postEntity.setDescription("The characteristics of someone or something");
-        postEntity.setEmailAddress("42 Main St");
-        postEntity.setId(123L);
-        postEntity.setImage(new HashSet<>());
-        postEntity.setLocalization("Localization");
-        postEntity.setPhoneNumber("4105551212");
-        postEntity.setTitle("Dr");
-        PostRepository postRepository = mock(PostRepository.class);
-        when(postRepository.save((PostEntity) any())).thenReturn(postEntity);
-        PostMapperImpl postMapper = new PostMapperImpl();
-        PostController postController = new PostController(
-                new PostServiceImpl(postRepository, postMapper, new StorageServiceImpl(new AmazonS3Client())));
-        PostDto dto = mock(PostDto.class);
-        ResponseEntity<Void> actualCreatePostResult = postController.createPost(dto, new HashSet<>());
-        assertNull(actualCreatePostResult.getBody());
-        assertEquals(HttpStatus.CREATED, actualCreatePostResult.getStatusCode());
-        assertTrue(actualCreatePostResult.getHeaders().isEmpty());
-        verify(postRepository).save((PostEntity) any());
+        PostDto postDto = new PostDto();
+        postDto.setAuthorId(123L);
+        postDto.setCategory(Category.GAMES);
+        postDto.setDescription("The characteristics of someone or something");
+        postDto.setEmailAddress("42 Main St");
+        postDto.setId(123L);
+        postDto.setImage(new HashSet<>());
+        postDto.setLocalization("Localization");
+        postDto.setPhoneNumber("4105551212");
+        postDto.setPrice(1L);
+        postDto.setPromoted(true);
+        postDto.setTitle("Dr");
+        String content = (new ObjectMapper()).writeValueAsString(postDto);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/v1/post/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(content);
+        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(postController).build().perform(requestBuilder);
+        actualPerformResult.andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
-
+    /**
+     * Method under test: {@link PostController#updatePost(PostDto)}
+     */
     @Test
-    void testUpdatePost() {
-        //   Diffblue Cover was unable to write a Spring test,
-        //   so wrote a non-Spring test instead.
-        //   Reason: R008 Failed to instantiate class under test.
-        //   Diffblue Cover was unable to construct an instance of PostController.
-        //   Add a package-visible constructor or a factory method for the class under test.
-        //   If such a method is already present but Diffblue Cover does not find it, it can
-        //   be specified using custom rules for inputs:
-        //   https://docs.diffblue.com/knowledge-base/cli/custom-inputs/
-        //   This can happen because the factory method takes arguments, throws, returns null
-        //   or returns a subtype.
-        //   See https://diff.blue/R008
+    void testUpdatePost() throws Exception {
+        doNothing().when(postService).updatePost((PostDto) any());
 
-        PostEntity postEntity = new PostEntity();
-        postEntity.setAuthorId(123L);
-        postEntity.setCategory(Category.GAMES);
-        postEntity.setDescription("The characteristics of someone or something");
-        postEntity.setEmailAddress("42 Main St");
-        postEntity.setId(123L);
-        postEntity.setImage(new HashSet<>());
-        postEntity.setLocalization("Localization");
-        postEntity.setPhoneNumber("4105551212");
-        postEntity.setTitle("Dr");
-
-        PostEntity postEntity1 = new PostEntity();
-        postEntity1.setAuthorId(123L);
-        postEntity1.setCategory(Category.GAMES);
-        postEntity1.setDescription("The characteristics of someone or something");
-        postEntity1.setEmailAddress("42 Main St");
-        postEntity1.setId(123L);
-        postEntity1.setImage(new HashSet<>());
-        postEntity1.setLocalization("Localization");
-        postEntity1.setPhoneNumber("4105551212");
-        postEntity1.setTitle("Dr");
-        PostRepository postRepository = mock(PostRepository.class);
-        when(postRepository.save((PostEntity) any())).thenReturn(postEntity1);
-        when(postRepository.getById((Long) any())).thenReturn(postEntity);
-        PostMapperImpl postMapper = new PostMapperImpl();
-        PostController postController = new PostController(
-                new PostServiceImpl(postRepository, postMapper, new StorageServiceImpl(new AmazonS3Client())));
-        PostDto dto = mock(PostDto.class);
-        ResponseEntity<Void> actualUpdatePostResult = postController.updatePost(dto, new HashSet<>());
-        assertNull(actualUpdatePostResult.getBody());
-        assertEquals(HttpStatus.ACCEPTED, actualUpdatePostResult.getStatusCode());
-        assertTrue(actualUpdatePostResult.getHeaders().isEmpty());
-        verify(postRepository).getById((Long) any());
-        verify(postRepository).save((PostEntity) any());
+        PostDto postDto = new PostDto();
+        postDto.setAuthorId(123L);
+        postDto.setCategory(Category.GAMES);
+        postDto.setDescription("The characteristics of someone or something");
+        postDto.setEmailAddress("42 Main St");
+        postDto.setId(123L);
+        postDto.setImage(new HashSet<>());
+        postDto.setLocalization("Localization");
+        postDto.setPhoneNumber("4105551212");
+        postDto.setPrice(1L);
+        postDto.setPromoted(true);
+        postDto.setTitle("Dr");
+        String content = (new ObjectMapper()).writeValueAsString(postDto);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/v1/post/update/{id}", 123L)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(content);
+        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(postController).build().perform(requestBuilder);
+        actualPerformResult.andExpect(MockMvcResultMatchers.status().isAccepted());
     }
 
     /**
@@ -143,25 +96,17 @@ class PostControllerTest {
      */
     @Test
     void testGetPostById() throws Exception {
-        when(this.postService.getPostById((Long) any())).thenReturn(mock(PostDto.class));
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/{id}", "Uri Vars",
-                "Uri Vars");
-        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(this.postController)
+        when(postService.getPostById((Long) any())).thenReturn(new PostDto());
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/{id}", 123L);
+        MockMvcBuilders.standaloneSetup(postController)
                 .build()
-                .perform(requestBuilder);
-        actualPerformResult.andExpect(MockMvcResultMatchers.status().is(400));
-    }
-
-    /**
-     * Method under test: {@link PostController#getPostById(Long)}
-     */
-    @Test
-    void testGetPostById2() throws Exception {
-        when(this.postService.getPostById((Long) any())).thenReturn(mock(PostDto.class));
-        MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/v1/post/get/{id}", 123L);
-        getResult.accept("https://example.org/example");
-        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(this.postController).build().perform(getResult);
-        actualPerformResult.andExpect(MockMvcResultMatchers.status().is(406));
+                .perform(requestBuilder)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+                .andExpect(MockMvcResultMatchers.content()
+                        .string(
+                                "{\"id\":null,\"authorId\":null,\"title\":null,\"category\":null,\"description\":null,\"localization\":null,"
+                                        + "\"emailAddress\":null,\"phoneNumber\":null,\"price\":null,\"image\":null,\"promoted\":false}"));
     }
 
     /**
@@ -169,9 +114,9 @@ class PostControllerTest {
      */
     @Test
     void testGetAllPosts() throws Exception {
-        when(this.postService.getAllPosts()).thenReturn(new ArrayList<>());
+        when(postService.getAllPosts()).thenReturn(new ArrayList<>());
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/all");
-        MockMvcBuilders.standaloneSetup(this.postController)
+        MockMvcBuilders.standaloneSetup(postController)
                 .build()
                 .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -184,10 +129,10 @@ class PostControllerTest {
      */
     @Test
     void testGetAllPosts2() throws Exception {
-        when(this.postService.getAllPosts()).thenReturn(new ArrayList<>());
+        when(postService.getAllPosts()).thenReturn(new ArrayList<>());
         MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/v1/post/get/all");
-        getResult.contentType("https://example.org/example");
-        MockMvcBuilders.standaloneSetup(this.postController)
+        getResult.characterEncoding("Encoding");
+        MockMvcBuilders.standaloneSetup(postController)
                 .build()
                 .perform(getResult)
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -200,28 +145,12 @@ class PostControllerTest {
      */
     @Test
     void testGetAllPostsByAuthorId() throws Exception {
-        when(this.postService.getAllPosts()).thenReturn(new ArrayList<>());
+        when(postService.getAllPosts()).thenReturn(new ArrayList<>());
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/all/{authorId}", "",
                 "Uri Vars");
-        MockMvcBuilders.standaloneSetup(this.postController)
+        MockMvcBuilders.standaloneSetup(postController)
                 .build()
                 .perform(requestBuilder)
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-                .andExpect(MockMvcResultMatchers.content().string("[]"));
-    }
-
-    /**
-     * Method under test: {@link PostController#getAllPostsByAuthorId(Long)}
-     */
-    @Test
-    void testGetAllPostsByAuthorId2() throws Exception {
-        when(this.postService.getAllPosts()).thenReturn(new ArrayList<>());
-        MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/v1/post/get/all/{authorId}", "", "Uri Vars");
-        getResult.contentType("https://example.org/example");
-        MockMvcBuilders.standaloneSetup(this.postController)
-                .build()
-                .perform(getResult)
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
@@ -232,10 +161,10 @@ class PostControllerTest {
      */
     @Test
     void testGetAllPostsByCategory() throws Exception {
-        when(this.postService.getAllPosts()).thenReturn(new ArrayList<>());
+        when(postService.getAllPosts()).thenReturn(new ArrayList<>());
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "",
                 "Uri Vars");
-        MockMvcBuilders.standaloneSetup(this.postController)
+        MockMvcBuilders.standaloneSetup(postController)
                 .build()
                 .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -248,14 +177,20 @@ class PostControllerTest {
      */
     @Test
     void testGetAllPostsByCategory2() throws Exception {
-        when(this.postService.getAllPosts()).thenReturn(new ArrayList<>());
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "", "?");
-        MockMvcBuilders.standaloneSetup(this.postController)
+        ArrayList<PostDto> postDtoList = new ArrayList<>();
+        postDtoList.add(new PostDto());
+        when(postService.getAllPosts()).thenReturn(postDtoList);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "",
+                "Uri Vars");
+        MockMvcBuilders.standaloneSetup(postController)
                 .build()
                 .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-                .andExpect(MockMvcResultMatchers.content().string("[]"));
+                .andExpect(MockMvcResultMatchers.content()
+                        .string(
+                                "[{\"id\":null,\"authorId\":null,\"title\":null,\"category\":null,\"description\":null,\"localization\":null,"
+                                        + "\"emailAddress\":null,\"phoneNumber\":null,\"price\":null,\"image\":null,\"promoted\":false}]"));
     }
 
     /**
@@ -263,14 +198,23 @@ class PostControllerTest {
      */
     @Test
     void testGetAllPostsByCategory3() throws Exception {
-        when(this.postService.getAllPosts()).thenReturn(new ArrayList<>());
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "", "U");
-        MockMvcBuilders.standaloneSetup(this.postController)
+        ArrayList<PostDto> postDtoList = new ArrayList<>();
+        postDtoList.add(new PostDto());
+        postDtoList.add(new PostDto());
+        when(postService.getAllPosts()).thenReturn(postDtoList);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "",
+                "Uri Vars");
+        MockMvcBuilders.standaloneSetup(postController)
                 .build()
                 .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-                .andExpect(MockMvcResultMatchers.content().string("[]"));
+                .andExpect(MockMvcResultMatchers.content()
+                        .string(
+                                "[{\"id\":null,\"authorId\":null,\"title\":null,\"category\":null,\"description\":null,\"localization\":null,"
+                                        + "\"emailAddress\":null,\"phoneNumber\":null,\"price\":null,\"image\":null,\"promoted\":false},{\"id\":null,\"authorId"
+                                        + "\":null,\"title\":null,\"category\":null,\"description\":null,\"localization\":null,\"emailAddress\":null,"
+                                        + "\"phoneNumber\":null,\"price\":null,\"image\":null,\"promoted\":false}]"));
     }
 
     /**
@@ -278,9 +222,9 @@ class PostControllerTest {
      */
     @Test
     void testGetAllPostsByCategory4() throws Exception {
-        when(this.postService.getAllPosts()).thenReturn(new ArrayList<>());
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "", 42);
-        MockMvcBuilders.standaloneSetup(this.postController)
+        when(postService.getAllPosts()).thenReturn(new ArrayList<>());
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "", "?");
+        MockMvcBuilders.standaloneSetup(postController)
                 .build()
                 .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -293,9 +237,9 @@ class PostControllerTest {
      */
     @Test
     void testGetAllPostsByCategory5() throws Exception {
-        when(this.postService.getAllPosts()).thenReturn(new ArrayList<>());
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "", 1);
-        MockMvcBuilders.standaloneSetup(this.postController)
+        when(postService.getAllPosts()).thenReturn(new ArrayList<>());
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "", "U");
+        MockMvcBuilders.standaloneSetup(postController)
                 .build()
                 .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -308,9 +252,9 @@ class PostControllerTest {
      */
     @Test
     void testGetAllPostsByCategory6() throws Exception {
-        when(this.postService.getAllPosts()).thenReturn(new ArrayList<>());
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "", 0);
-        MockMvcBuilders.standaloneSetup(this.postController)
+        when(postService.getAllPosts()).thenReturn(new ArrayList<>());
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "", 42);
+        MockMvcBuilders.standaloneSetup(postController)
                 .build()
                 .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -323,9 +267,9 @@ class PostControllerTest {
      */
     @Test
     void testGetAllPostsByCategory7() throws Exception {
-        when(this.postService.getAllPosts()).thenReturn(new ArrayList<>());
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "", -1);
-        MockMvcBuilders.standaloneSetup(this.postController)
+        when(postService.getAllPosts()).thenReturn(new ArrayList<>());
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "", 1);
+        MockMvcBuilders.standaloneSetup(postController)
                 .build()
                 .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -338,10 +282,9 @@ class PostControllerTest {
      */
     @Test
     void testGetAllPostsByCategory8() throws Exception {
-        when(this.postService.getAllPosts()).thenReturn(new ArrayList<>());
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "",
-                Integer.MIN_VALUE);
-        MockMvcBuilders.standaloneSetup(this.postController)
+        when(postService.getAllPosts()).thenReturn(new ArrayList<>());
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "", 0);
+        MockMvcBuilders.standaloneSetup(postController)
                 .build()
                 .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -354,9 +297,9 @@ class PostControllerTest {
      */
     @Test
     void testGetAllPostsByCategory9() throws Exception {
-        when(this.postService.getAllPosts()).thenReturn(new ArrayList<>());
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "", "42");
-        MockMvcBuilders.standaloneSetup(this.postController)
+        when(postService.getAllPosts()).thenReturn(new ArrayList<>());
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "", -1);
+        MockMvcBuilders.standaloneSetup(postController)
                 .build()
                 .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -369,9 +312,10 @@ class PostControllerTest {
      */
     @Test
     void testGetAllPostsByCategory10() throws Exception {
-        when(this.postService.getAllPosts()).thenReturn(new ArrayList<>());
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "", "");
-        MockMvcBuilders.standaloneSetup(this.postController)
+        when(postService.getAllPosts()).thenReturn(new ArrayList<>());
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "",
+                Integer.MIN_VALUE);
+        MockMvcBuilders.standaloneSetup(postController)
                 .build()
                 .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -384,12 +328,11 @@ class PostControllerTest {
      */
     @Test
     void testGetAllPostsByCategory11() throws Exception {
-        when(this.postService.getAllPosts()).thenReturn(new ArrayList<>());
-        MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "", "Uri Vars");
-        getResult.secure(true);
-        MockMvcBuilders.standaloneSetup(this.postController)
+        when(postService.getAllPosts()).thenReturn(new ArrayList<>());
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "", "42");
+        MockMvcBuilders.standaloneSetup(postController)
                 .build()
-                .perform(getResult)
+                .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
@@ -400,12 +343,11 @@ class PostControllerTest {
      */
     @Test
     void testGetAllPostsByCategory12() throws Exception {
-        when(this.postService.getAllPosts()).thenReturn(new ArrayList<>());
-        MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "", "Uri Vars");
-        getResult.content("AAAAAAAA".getBytes("UTF-8"));
-        MockMvcBuilders.standaloneSetup(this.postController)
+        when(postService.getAllPosts()).thenReturn(new ArrayList<>());
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "", "");
+        MockMvcBuilders.standaloneSetup(postController)
                 .build()
-                .perform(getResult)
+                .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
@@ -416,10 +358,10 @@ class PostControllerTest {
      */
     @Test
     void testGetAllPostsByCategory13() throws Exception {
-        when(this.postService.getAllPosts()).thenReturn(new ArrayList<>());
+        when(postService.getAllPosts()).thenReturn(new ArrayList<>());
         MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "", "Uri Vars");
-        getResult.content("https://example.org/example");
-        MockMvcBuilders.standaloneSetup(this.postController)
+        getResult.secure(true);
+        MockMvcBuilders.standaloneSetup(postController)
                 .build()
                 .perform(getResult)
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -432,10 +374,10 @@ class PostControllerTest {
      */
     @Test
     void testGetAllPostsByCategory14() throws Exception {
-        when(this.postService.getAllPosts()).thenReturn(new ArrayList<>());
+        when(postService.getAllPosts()).thenReturn(new ArrayList<>());
         MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "", "Uri Vars");
-        getResult.contentType("https://example.org/example");
-        MockMvcBuilders.standaloneSetup(this.postController)
+        getResult.content("AAAAAAAA".getBytes("UTF-8"));
+        MockMvcBuilders.standaloneSetup(postController)
                 .build()
                 .perform(getResult)
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -448,11 +390,15 @@ class PostControllerTest {
      */
     @Test
     void testGetAllPostsByCategory15() throws Exception {
-        when(this.postService.getAllPosts()).thenReturn(new ArrayList<>());
+        when(postService.getAllPosts()).thenReturn(new ArrayList<>());
         MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "", "Uri Vars");
-        getResult.accept("https://example.org/example");
-        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(this.postController).build().perform(getResult);
-        actualPerformResult.andExpect(MockMvcResultMatchers.status().is(406));
+        getResult.content("https://example.org/example");
+        MockMvcBuilders.standaloneSetup(postController)
+                .build()
+                .perform(getResult)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+                .andExpect(MockMvcResultMatchers.content().string("[]"));
     }
 
     /**
@@ -460,10 +406,10 @@ class PostControllerTest {
      */
     @Test
     void testGetAllPostsByCategory16() throws Exception {
-        when(this.postService.getAllPosts()).thenReturn(new ArrayList<>());
+        when(postService.getAllPosts()).thenReturn(new ArrayList<>());
         MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "", "Uri Vars");
-        getResult.session(new MockHttpSession());
-        MockMvcBuilders.standaloneSetup(this.postController)
+        getResult.contentType("text/plain");
+        MockMvcBuilders.standaloneSetup(postController)
                 .build()
                 .perform(getResult)
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -476,10 +422,22 @@ class PostControllerTest {
      */
     @Test
     void testGetAllPostsByCategory17() throws Exception {
-        when(this.postService.getAllPosts()).thenReturn(new ArrayList<>());
+        when(postService.getAllPosts()).thenReturn(new ArrayList<>());
         MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "", "Uri Vars");
-        getResult.principal(new UserPrincipal("principal"));
-        MockMvcBuilders.standaloneSetup(this.postController)
+        getResult.accept("https://example.org/example");
+        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(postController).build().perform(getResult);
+        actualPerformResult.andExpect(MockMvcResultMatchers.status().is(406));
+    }
+
+    /**
+     * Method under test: {@link PostController#getAllPostsByCategory(Category)}
+     */
+    @Test
+    void testGetAllPostsByCategory18() throws Exception {
+        when(postService.getAllPosts()).thenReturn(new ArrayList<>());
+        MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "", "Uri Vars");
+        getResult.session(new MockHttpSession());
+        MockMvcBuilders.standaloneSetup(postController)
                 .build()
                 .perform(getResult)
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -491,15 +449,13 @@ class PostControllerTest {
      * Method under test: {@link PostController#getAllPostsByCategory(Category)}
      */
     @Test
-    void testGetAllPostsByCategory18() throws Exception {
-        ArrayList<PostDto> postDtoList = new ArrayList<>();
-        postDtoList.addAll(new ArrayList<>());
-        when(this.postService.getAllPosts()).thenReturn(postDtoList);
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "",
-                "Uri Vars");
-        MockMvcBuilders.standaloneSetup(this.postController)
+    void testGetAllPostsByCategory19() throws Exception {
+        when(postService.getAllPosts()).thenReturn(new ArrayList<>());
+        MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/v1/post/get/all/{category}", "", "Uri Vars");
+        getResult.principal(new UserPrincipal("principal"));
+        MockMvcBuilders.standaloneSetup(postController)
                 .build()
-                .perform(requestBuilder)
+                .perform(getResult)
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content().string("[]"));
@@ -510,29 +466,12 @@ class PostControllerTest {
      */
     @Test
     void testGetAllPostsByLocalization() throws Exception {
-        when(this.postService.getAllPosts()).thenReturn(new ArrayList<>());
+        when(postService.getAllPosts()).thenReturn(new ArrayList<>());
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/get/all/{localization}", "",
                 "Uri Vars");
-        MockMvcBuilders.standaloneSetup(this.postController)
+        MockMvcBuilders.standaloneSetup(postController)
                 .build()
                 .perform(requestBuilder)
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
-                .andExpect(MockMvcResultMatchers.content().string("[]"));
-    }
-
-    /**
-     * Method under test: {@link PostController#getAllPostsByLocalization(String)}
-     */
-    @Test
-    void testGetAllPostsByLocalization2() throws Exception {
-        when(this.postService.getAllPosts()).thenReturn(new ArrayList<>());
-        MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/v1/post/get/all/{localization}", "",
-                "Uri Vars");
-        getResult.contentType("https://example.org/example");
-        MockMvcBuilders.standaloneSetup(this.postController)
-                .build()
-                .perform(getResult)
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.content().string("[]"));

@@ -6,6 +6,7 @@ import com.amazonaws.services.s3.model.PutObjectResult;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.util.IOUtils;
+import com.gametrader.gametraderpostservice.entity.ImageEntity;
 import com.gametrader.gametraderpostservice.service.StorageService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -23,6 +26,14 @@ import java.util.Objects;
 public class StorageServiceImpl implements StorageService {
     private final String bucketName = System.getenv("AWS_BUCKET_NAME");
     private final AmazonS3 s3Client;
+
+    @Override
+    public Set<ImageEntity> addImages(Set<MultipartFile> files) {
+        return files.stream()
+                .map(this::uploadFile)
+                .map(item -> ImageEntity.builder().fileName(item).build())
+                .collect(Collectors.toSet());
+    }
 
     @Override
     public String uploadFile(MultipartFile file) {
