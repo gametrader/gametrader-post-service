@@ -1,6 +1,5 @@
 package com.gametrader.gametraderpostservice.controller;
 
-import com.gametrader.gametraderpostservice.dto.CategoryDto;
 import com.gametrader.gametraderpostservice.dto.PostDto;
 import com.gametrader.gametraderpostservice.service.PostService;
 import lombok.AllArgsConstructor;
@@ -47,13 +46,18 @@ public class PostController {
         return new ResponseEntity<>(postService.getPostsByAuthorId(authorId), HttpStatus.OK);
     }
 
-    @GetMapping("/get/all/{localization}")
+    @GetMapping("/get/all/localization{localization}")
     public ResponseEntity<List<PostDto>> getAllPostsByLocalization(@PathVariable @NotNull String localization) {
         return new ResponseEntity<>(postService.getPostsByLocalization(localization), HttpStatus.OK);
     }
 
-    @GetMapping("/get/all/{category}")
-    public ResponseEntity<List<PostDto>> getAllPostsByCategory(@PathVariable @NotNull CategoryDto category) {
-        return new ResponseEntity<>(postService.getPostsByCategory(category), HttpStatus.OK);
+    @GetMapping("/get/all/category/{categoryId}")
+    public ResponseEntity<List<PostDto>> getAllPostsByCategory(@PathVariable @NotNull Long categoryId) {
+        return new ResponseEntity<>(postService.getPostsByCategory(categoryId), HttpStatus.OK);
+    }
+
+    @GetMapping("/get/all/category-and-localization/{categoryId}/{localization}")
+    public ResponseEntity<List<PostDto>> getAllPostsByCategory(@PathVariable @NotNull Long categoryId, @PathVariable @NotNull String localization) {
+        return new ResponseEntity<>(postService.getPostsByCategoryAndLocalization(categoryId, localization), HttpStatus.OK);
     }
 }
