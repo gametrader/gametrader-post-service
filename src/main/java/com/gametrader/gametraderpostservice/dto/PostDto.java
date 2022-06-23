@@ -14,7 +14,6 @@ import java.util.Set;
 @Setter
 public class PostDto {
 
-    @NotNull
     private Long id;
     @NotNull
     private Long authorId;
