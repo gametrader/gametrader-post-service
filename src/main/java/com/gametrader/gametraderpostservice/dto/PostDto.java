@@ -1,7 +1,6 @@
 package com.gametrader.gametraderpostservice.dto;
 
 import com.gametrader.gametraderpostservice.entity.ImageEntity;
-import com.gametrader.gametraderpostservice.model.Category;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
@@ -20,7 +19,7 @@ public class PostDto {
     @NotNull
     private String title;
     @NotNull
-    private Category category;
+    private CategoryDto category;
     private String description;
     @NotNull
     private String localization;

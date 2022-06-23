@@ -1,9 +1,9 @@
 package com.gametrader.gametraderpostservice.service.impl;
 
+import com.gametrader.gametraderpostservice.dto.CategoryDto;
 import com.gametrader.gametraderpostservice.dto.PostDto;
 import com.gametrader.gametraderpostservice.entity.PostEntity;
 import com.gametrader.gametraderpostservice.mapper.PostMapper;
-import com.gametrader.gametraderpostservice.model.Category;
 import com.gametrader.gametraderpostservice.repository.ImageRepository;
 import com.gametrader.gametraderpostservice.repository.PostRepository;
 import com.gametrader.gametraderpostservice.service.PostService;
@@ -64,7 +64,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDto> getPostsByCategory(Category category) {
+    public List<PostDto> getPostsByCategory(CategoryDto category) {
         return postRepository.findAllByCategory(category)
                 .stream()
                 .map(postMapper::entityToDto)

@@ -1,7 +1,7 @@
 package com.gametrader.gametraderpostservice.service;
 
+import com.gametrader.gametraderpostservice.dto.CategoryDto;
 import com.gametrader.gametraderpostservice.dto.PostDto;
-import com.gametrader.gametraderpostservice.model.Category;
 
 import java.util.List;
 
@@ -14,5 +14,5 @@ public interface PostService {
     List<PostDto> getAllPosts();
     List<PostDto> getPostsByAuthorId(Long authorId);
     List<PostDto> getPostsByLocalization(String localization);
-    List<PostDto> getPostsByCategory(Category category);
+    List<PostDto> getPostsByCategory(CategoryDto category);
 }
