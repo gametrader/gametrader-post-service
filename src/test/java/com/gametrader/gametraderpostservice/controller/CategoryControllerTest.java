@@ -22,7 +22,7 @@ class CategoryControllerTest {
     @Test
     void testGetAllCategories() throws Exception {
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/category/get/all");
-        MockMvcBuilders.standaloneSetup(this.categoryController)
+        MockMvcBuilders.standaloneSetup(categoryController)
                 .build()
                 .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -36,7 +36,7 @@ class CategoryControllerTest {
     @Test
     void testGetAllCategories2() throws Exception {
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/v1/post/category/get/all", "Uri Vars");
-        MockMvcBuilders.standaloneSetup(this.categoryController)
+        MockMvcBuilders.standaloneSetup(categoryController)
                 .build()
                 .perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isOk())

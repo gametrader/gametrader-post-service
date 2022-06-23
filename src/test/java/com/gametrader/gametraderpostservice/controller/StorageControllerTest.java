@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gametrader.gametraderpostservice.service.StorageService;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,7 +29,20 @@ class StorageControllerTest {
     private StorageService storageService;
 
     /**
-     * Method under test: {@link StorageController#getImages(java.util.Set)}
+     * Method under test: {@link StorageController#addImages(Set)}
+     */
+    @Test
+    void testAddImages() throws Exception {
+        MockHttpServletRequestBuilder postResult = MockMvcRequestBuilders.post("/v1/post/storage/add");
+        MockHttpServletRequestBuilder requestBuilder = postResult.param("files", String.valueOf(new HashSet<>()));
+        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(storageController)
+                .build()
+                .perform(requestBuilder);
+        actualPerformResult.andExpect(MockMvcResultMatchers.status().is(415));
+    }
+
+    /**
+     * Method under test: {@link StorageController#getImages(Set)}
      */
     @Test
     void testGetImages() throws Exception {
@@ -38,24 +52,7 @@ class StorageControllerTest {
         ObjectMapper objectMapper = new ObjectMapper();
         MockHttpServletRequestBuilder requestBuilder = contentTypeResult
                 .content(objectMapper.writeValueAsString(new HashSet<>()));
-        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(this.storageController)
-                .build()
-                .perform(requestBuilder);
-        actualPerformResult.andExpect(MockMvcResultMatchers.status().is(500));
-    }
-
-    /**
-     * Method under test: {@link StorageController#getImages(java.util.Set)}
-     */
-    @Test
-    void testGetImages2() throws Exception {
-        MockHttpServletRequestBuilder contentTypeResult = MockMvcRequestBuilders.get("/v1/post/storage/get", "Uri Vars")
-                .contentType(MediaType.APPLICATION_JSON);
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        MockHttpServletRequestBuilder requestBuilder = contentTypeResult
-                .content(objectMapper.writeValueAsString(new HashSet<>()));
-        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(this.storageController)
+        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(storageController)
                 .build()
                 .perform(requestBuilder);
         actualPerformResult.andExpect(MockMvcResultMatchers.status().is(500));

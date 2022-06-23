@@ -8,13 +8,14 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.gametrader.gametraderpostservice.dto.PostDto;
+import com.gametrader.gametraderpostservice.entity.ImageEntity;
 import com.gametrader.gametraderpostservice.entity.PostEntity;
 import com.gametrader.gametraderpostservice.mapper.PostMapper;
 import com.gametrader.gametraderpostservice.model.Category;
+import com.gametrader.gametraderpostservice.repository.ImageRepository;
 import com.gametrader.gametraderpostservice.repository.PostRepository;
 
 import java.util.ArrayList;
-
 import java.util.HashSet;
 
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(classes = {PostServiceImpl.class})
 @ExtendWith(SpringExtension.class)
 class PostServiceImplTest {
+    @MockBean
+    private ImageRepository imageRepository;
+
     @MockBean
     private PostMapper postMapper;
 
@@ -54,6 +58,7 @@ class PostServiceImplTest {
         postEntity.setPromoted(true);
         postEntity.setTitle("Dr");
         when(postRepository.save((PostEntity) any())).thenReturn(postEntity);
+        when(imageRepository.saveAll((Iterable<ImageEntity>) any())).thenReturn(new ArrayList<>());
 
         PostEntity postEntity1 = new PostEntity();
         postEntity1.setAuthorId(123L);
@@ -71,6 +76,7 @@ class PostServiceImplTest {
         PostDto postDto = new PostDto();
         postServiceImpl.createPost(postDto);
         verify(postRepository).save((PostEntity) any());
+        verify(imageRepository).saveAll((Iterable<ImageEntity>) any());
         verify(postMapper).dtoToEntity((PostDto) any());
         assertFalse(postDto.isPromoted());
     }
@@ -93,6 +99,7 @@ class PostServiceImplTest {
         postEntity.setPromoted(true);
         postEntity.setTitle("Dr");
         when(postRepository.save((PostEntity) any())).thenReturn(postEntity);
+        when(imageRepository.saveAll((Iterable<ImageEntity>) any())).thenReturn(new ArrayList<>());
 
         PostEntity postEntity1 = new PostEntity();
         postEntity1.setAuthorId(123L);
@@ -110,6 +117,7 @@ class PostServiceImplTest {
         PostDto postDto = new PostDto();
         postServiceImpl.updatePost(postDto);
         verify(postRepository).save((PostEntity) any());
+        verify(imageRepository).saveAll((Iterable<ImageEntity>) any());
         verify(postMapper).dtoToEntity((PostDto) any());
         assertFalse(postDto.isPromoted());
     }

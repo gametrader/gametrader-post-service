@@ -1,13 +1,12 @@
 package com.gametrader.gametraderpostservice.service.impl;
 
 import com.gametrader.gametraderpostservice.dto.PostDto;
-import com.gametrader.gametraderpostservice.entity.ImageEntity;
 import com.gametrader.gametraderpostservice.entity.PostEntity;
 import com.gametrader.gametraderpostservice.mapper.PostMapper;
 import com.gametrader.gametraderpostservice.model.Category;
+import com.gametrader.gametraderpostservice.repository.ImageRepository;
 import com.gametrader.gametraderpostservice.repository.PostRepository;
 import com.gametrader.gametraderpostservice.service.PostService;
-import com.gametrader.gametraderpostservice.service.StorageService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,16 +18,19 @@ import java.util.stream.Collectors;
 public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
+    private final ImageRepository imageRepository;
     private final PostMapper postMapper;
     @Override
     public void createPost(PostDto dto) {
         PostEntity postEntity = postMapper.dtoToEntity(dto);
+        imageRepository.saveAll(postEntity.getImage());
         postRepository.save(postEntity);
     }
 
     @Override
     public void updatePost(PostDto dto) {
         PostEntity newEntity = postMapper.dtoToEntity(dto);
+        imageRepository.saveAll(newEntity.getImage());
         postRepository.save(newEntity);
     }
 
